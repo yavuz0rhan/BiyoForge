@@ -1,0 +1,28 @@
+const int suSensorPin = A0;  
+const int gazSensorPin = A2; 
+
+const int GAZ_SENSORU_MIN = 300; 
+const int GAZ_SENSORU_MAX = 850;
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  int suSensorDegeri = analogRead(suSensorPin);
+  int suYuzdeDeger = map(suSensorDegeri, 0, 750, 0, 100); 
+  suYuzdeDeger = constrain(suYuzdeDeger, 0, 100);
+
+  delay(10); 
+  
+  int gazSensoruHamDeger = analogRead(gazSensorPin);
+  int gazYuzdeDeger = map(gazSensoruHamDeger, GAZ_SENSORU_MIN, GAZ_SENSORU_MAX, 0, 100);
+  
+  gazYuzdeDeger = constrain(gazYuzdeDeger, 0, 100);
+
+  String veriPaketi = String(suYuzdeDeger) + "," + String(gazYuzdeDeger);
+
+  Serial.println(veriPaketi);
+  
+  delay(250);
+}
